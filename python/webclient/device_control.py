@@ -1,6 +1,7 @@
 #!/usr/bin/env python
 # coding=utf-8
 
+import requests
 import util.logger as logger
 
 log = logger.get_logger(__name__)
@@ -30,3 +31,10 @@ class ArduinoDevice():
 
     def toggle_led(self):
         log.info("Toggle LED")
+        response = requests.get('http://localhost:5000/api/version')
+        if not response:
+            log.error("API call failed on device: %s", response)
+            return False
+        
+        log.info("Response: %s", response.content)
+        return True

@@ -22,6 +22,7 @@ def parse_cmd_args():
     parser = argparse.ArgumentParser()
     pretty_version = version.__pretty_version__
     parser.add_argument("--version", "-v", action = 'version', version = pretty_version)
+    parser.add_argument("device_ip", action="store")
     args = parser.parse_args()
 
     _logger.debug("CLI args: %s", args)
@@ -32,7 +33,7 @@ def start_flask_server():
     import webserver
     flask_app = webserver.flask_app
     
-    flask_server = make_server("0.0.0.0", FLASK_SERVER_PORT, flask_app)
+    flask_server = make_server("0.0.0.0", FLASK_SERVER_PORT, flask_app, threaded=True)
     flask_server.serve_forever()
 
 def main():
@@ -44,7 +45,7 @@ def main():
         args = parse_cmd_args()
         
         # Create an instance of the Arduino Device
-        ArduinoDevice.create_instance("192.168.1.1")
+        ArduinoDevice.create_instance(args.device_ip)
 
         # This call will block forever
         _logger.info("Open the following URL in a browser: http://localhost:%s", FLASK_SERVER_PORT)

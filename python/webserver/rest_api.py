@@ -35,8 +35,8 @@ def blink_device_led():
     device = ArduinoDevice.get_instance()
 
     log.info("Toggle the LED on device: %s", device)
-    device.toggle_led()
+    status = device.toggle_led()
 
-    return(jsonify({'success': True}),
+    return(jsonify({'success': status}),
           HTTP_OK,
           {'ContentType':'application/json'})
