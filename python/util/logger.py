@@ -20,7 +20,7 @@ if getattr(sys, 'frozen', False):
 else:
     WORKING_DIR = os.path.abspath(os.getcwd())
     CURRENT_DIR = os.path.abspath(os.getcwd())
-LOG_FILE_PATH = os.path.join(os.path.abspath(CURRENT_DIR), 'wittymail_log.txt')
+LOG_FILE_PATH = os.path.join(os.path.abspath(CURRENT_DIR), 'webserver_log.txt')
 
 def init_logger():
     try:
