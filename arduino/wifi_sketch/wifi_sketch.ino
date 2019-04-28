@@ -1,13 +1,20 @@
 #include <ESP8266WiFi.h>
 #include <WiFiClient.h>
+#include <ESP8266HTTPClient.h>
 #include <ESP8266WebServer.h>
 #include <ESP8266mDNS.h>
 #include "config.h"
 
 ESP8266WebServer server(80);
+HTTPClient client;
 
+/* Global LED state */
 const int led = LED_BUILTIN;
-int LED_STATE = 0;
+int LED_STATE = LOW;
+
+/* Global counter to trip at every interval */
+unsigned long last_updated_time = 0;
+const long interval = 1000; // in milliseconds
 
 /**
  * Service handler for '/'
@@ -25,17 +32,9 @@ void handleRoot() {
  */
 void handleNotFound()
 {
-  String message = "Unknown API:nn";
+  String message = "Unknown API:";
   message += "URI: ";
   message += server.uri();
-  message += "nMethod: ";
-  message += (server.method() == HTTP_GET)?"GET":"POST";
-  message += "nArguments: ";
-  message += server.args();
-  message += "n";
-  for (uint8_t i=0; i<server.args(); i++){
-    message += " " + server.argName(i) + ": " + server.arg(i) + "n";
-  }
   server.send(404, "text/plain", message);
 }
 
@@ -103,6 +102,52 @@ void connectToWifi()
 }
 
 /**
+ * Generate the full URL string for the POST API
+ */
+String getReportingURL()
+{
+  String URL = server_protocol;
+  URL += server_address;
+  URL += server_post_reading_api_endpoint;
+
+  return URL;
+}
+
+/**
+ * Every interval, send readings to the server
+ */
+void reportReadingToServer()
+{
+  unsigned long current_time = millis();
+
+  if (current_time - last_updated_time >= interval) {
+    last_updated_time = current_time;
+
+    String server_url = getReportingURL();
+    int reading = random(100); 
+    Serial.print("[HTTP_Client] Sending reading ");
+    Serial.print(reading);
+    Serial.print(" to server ");
+    Serial.println(server_url);
+
+    if (client.begin(server_url)) { 
+      client.addHeader("Content-Type", "application/json");
+      String payload = "{\"reading\": ";
+      payload += reading;
+      payload += "}";
+      int status_code = client.POST(payload);
+
+      if (200 != status_code) {
+        Serial.print("[HTTP_Client] Failed to send reading to server: ");
+        Serial.println(status_code);
+      }
+
+      client.end();
+    }
+  }
+}
+
+/**
  * One-time bootstrap
  */
 void setup(void)
@@ -125,4 +170,5 @@ void setup(void)
  */
 void loop(void){
   server.handleClient();
+  reportReadingToServer();
 }

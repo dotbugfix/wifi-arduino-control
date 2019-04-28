@@ -33,6 +33,10 @@ def post_data_from_device():
 
     log.info("Data from device: %s", data)
 
+    return(jsonify({'success': True}),
+          HTTP_OK,
+          {'ContentType':'application/json'})
+
 @flask_app.route("/api/device/led/toggle", methods=['GET'])
 def toggle_device_led():
     '''
