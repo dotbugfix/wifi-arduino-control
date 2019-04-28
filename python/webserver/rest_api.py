@@ -26,12 +26,18 @@ def get_version():
 
 @flask_app.route("/api/device/data", methods=['POST'])
 def post_data_from_device():
+    '''
+    Called by the Arduino device to report values from a sensor
+    '''
     data = json.loads(request.data)
 
     log.info("Data from device: %s", data)
 
-@flask_app.route("/api/device/blink", methods=['GET'])
-def blink_device_led():
+@flask_app.route("/api/device/led/toggle", methods=['GET'])
+def toggle_device_led():
+    '''
+    Test API to trigger an LED blink on the device
+    '''
     device = ArduinoDevice.get_instance()
 
     log.info("Toggle the LED on device: %s", device)

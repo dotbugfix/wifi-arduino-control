@@ -7,10 +7,18 @@ import util.logger as logger
 log = logger.get_logger(__name__)
 
 class ArduinoDevice():
+    '''
+    Represents actions that can be performed on the device
+    '''
+
+    # Singleton instance
     _instance = None
 
     @classmethod
     def get_instance(cls):
+        '''
+        Get the current singleton instance, otherwise raise an exception
+        '''
         if not cls._instance:
             raise Exception("Arduino Device object not yet created")
 
@@ -18,6 +26,11 @@ class ArduinoDevice():
 
     @classmethod
     def create_instance(cls, ip_address):
+        '''
+        Create a new instance of ArduinoDevice with the specified IP
+
+        :param ip_address: IP address of the device
+        '''
         log.info("Creating a new instance of Arduino Device with IP: %s",
                  ip_address)
 
@@ -30,6 +43,11 @@ class ArduinoDevice():
         return("ArduinoDevice<IP:%s>" % (self.ip_address))
 
     def toggle_led(self):
+        '''
+        Call an HTTP POST API on the device to toggle its LED
+
+        :return: True if the device reports that the LED was toggled, false otherwise
+        '''
         log.info("Toggle LED")
         response = requests.get('http://localhost:5000/api/version')
         if not response:
