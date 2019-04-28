@@ -5,6 +5,7 @@ import os, sys
 sys.path.append(os.path.abspath(os.path.join(os.curdir, '..', '..')))
 
 from webserver import flask_app
+from webclient.device_control import ArduinoDevice
 from flask import jsonify, request, json
 import util.version as version
 import util.logger as logger
@@ -22,3 +23,20 @@ def get_version():
     return (jsonify({'version': version.__pretty_version__}),
               HTTP_OK,
               {'ContentType':'application/json'})
+
+@flask_app.route("/api/device/data", methods=['POST'])
+def post_data_from_device():
+    data = json.loads(request.data)
+
+    log.info("Data from device: %s", data)
+
+@flask_app.route("/api/device/blink", methods=['GET'])
+def blink_device_led():
+    device = ArduinoDevice.get_instance()
+
+    log.info("Toggle the LED on device: %s", device)
+    device.toggle_led()
+
+    return(jsonify({'success': True}),
+          HTTP_OK,
+          {'ContentType':'application/json'})

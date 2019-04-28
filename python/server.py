@@ -9,6 +9,7 @@ import util.bootstrap
 
 import util.logger as logger
 from werkzeug.serving import make_server
+from webclient.device_control import ArduinoDevice
 
 _logger = logger.get_logger(__name__)
 
@@ -41,9 +42,12 @@ def main():
     '''
     try:
         args = parse_cmd_args()
-        _logger.info("Open the following URL in a browser: http://localhost:%s", FLASK_SERVER_PORT)
+        
+        # Create an instance of the Arduino Device
+        ArduinoDevice.create_instance("192.168.1.1")
 
         # This call will block forever
+        _logger.info("Open the following URL in a browser: http://localhost:%s", FLASK_SERVER_PORT)
         start_flask_server()
         
     except Exception:
