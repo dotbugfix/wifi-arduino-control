@@ -1,0 +1,23 @@
+2019-04-28 13:01:56,961 MainThread util.bootstrap INFO     | 
+WiFi Arduino Control v0.1.0 beta released on 28-Apr-2019
+=============================
+OS: Linux-4.15.0-45-generic-x86_64-with-Ubuntu-18.04-bionic
+Python: 3.6.7 (default, Oct 22 2018, 11:32:17) 
+[GCC 8.2.0]
+System: omkar on zenbook-flip/127.0.1.1
+Working directory: /home/omkar/gitkraken/wifi-arduino-control
+Runtime path: /home/omkar/gitkraken/wifi-arduino-control
+Commandline: /home/omkar/gitkraken/wifi-arduino-control/python/server.py
+=============================
+Log file: /home/omkar/gitkraken/wifi-arduino-control/wittymail_log.txt
+=============================
+    
+2019-04-28 13:01:57,101 MainThread __main__     DEBUG    | CLI args: Namespace()
+2019-04-28 13:01:57,104 MainThread __main__     INFO     | Open the following URL in a browser: http://localhost:5000
+2019-04-28 13:01:57,357 MainThread webserver    ERROR    | REST API startup failed
+Traceback (most recent call last):
+  File "/home/omkar/gitkraken/wifi-arduino-control/python/webserver/__init__.py", line 33, in <module>
+    import webserver.default_routes
+  File "/home/omkar/gitkraken/wifi-arduino-control/python/webserver/default_routes.py", line 7, in <module>
+    from wittymail_server import flask_app
+ModuleNotFoundError: No module named 'wittymail_server'

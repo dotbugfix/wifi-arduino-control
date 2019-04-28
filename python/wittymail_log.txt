@@ -1,0 +1,18 @@
+2019-04-28 13:06:48,895 MainThread util.bootstrap INFO     | 
+WiFi Arduino Control v0.1.0 beta released on 28-Apr-2019
+=============================
+OS: Linux-4.15.0-45-generic-x86_64-with-Ubuntu-18.04-bionic
+Python: 3.6.7 (default, Oct 22 2018, 11:32:17) 
+[GCC 8.2.0]
+System: omkar on zenbook-flip/127.0.1.1
+Working directory: /home/omkar/gitkraken/wifi-arduino-control/python
+Runtime path: /home/omkar/gitkraken/wifi-arduino-control/python
+Commandline: server.py
+=============================
+Log file: /home/omkar/gitkraken/wifi-arduino-control/python/wittymail_log.txt
+=============================
+    
+2019-04-28 13:06:48,993 MainThread __main__     DEBUG    | CLI args: Namespace()
+2019-04-28 13:06:48,993 MainThread __main__     INFO     | Open the following URL in a browser: http://localhost:5000
+2019-04-28 13:07:04,582 MainThread webserver.rest_api DEBUG    | Current version = WiFi Arduino Control v0.1.0 beta released on 28-Apr-2019
+2019-04-28 13:07:04,584 MainThread werkzeug     INFO     | 127.0.0.1 - - [28/Apr/2019 13:07:04] "GET /api/version HTTP/1.1" 200 -
