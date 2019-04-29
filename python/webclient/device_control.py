@@ -48,8 +48,9 @@ class ArduinoDevice():
 
         :return: True if the device reports that the LED was toggled, false otherwise
         '''
-        log.info("Toggle LED")
-        response = requests.get('http://localhost:5000/api/version')
+        url = 'http://%s/api/device/led/toggle' % (self.ip_address)
+        log.info("Making a HTTP GET request on %s", url)
+        response = requests.get(url)
         if not response:
             log.error("API call failed on device: %s", response)
             return False

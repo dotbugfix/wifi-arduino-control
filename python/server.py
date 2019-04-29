@@ -32,7 +32,7 @@ def start_flask_server():
     # See webserver/__init__.py for the Flask app bootstrap
     import webserver
     flask_app = webserver.flask_app
-    
+
     flask_server = make_server("0.0.0.0", FLASK_SERVER_PORT, flask_app, threaded=True)
     flask_server.serve_forever()
 
@@ -48,7 +48,7 @@ def main():
         ArduinoDevice.create_instance(args.device_ip)
 
         # This call will block forever
-        _logger.info("Open the following URL in a browser: http://localhost:%s", FLASK_SERVER_PORT)
+        _logger.info("HTTP server starting on: http://localhost:%s", FLASK_SERVER_PORT)
         start_flask_server()
         
     except Exception:

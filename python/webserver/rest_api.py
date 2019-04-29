@@ -37,7 +37,7 @@ def post_data_from_device():
           HTTP_OK,
           {'ContentType':'application/json'})
 
-@flask_app.route("/api/device/led/toggle", methods=['GET'])
+@flask_app.route("/api/server/led/toggle", methods=['GET'])
 def toggle_device_led():
     '''
     Test API to trigger an LED blink on the device
