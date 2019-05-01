@@ -1,1 +1,5 @@
 theme: jekyll-theme-cayman
+title: Wifi Arduino Control
+description: A reference project that uses the ESP8266 microchip to establish a 2-way communication channel between a Python-based server and an Arduino board.
+author: Omkar Ekbote
+google_analytics: UA-49509554-5 
